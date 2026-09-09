@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>React Class Component</title>
+    <!-- React CDN -->
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <!-- React DOM CDN -->
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <!-- Babel CDN -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+
+<body>
+    <div id="root"> </div>
+    <script type = "text/babel">
+        class MyComponent extends React.Component {
+            constructor(props) {
+                super(props);
+                this.state = {
+                    count: 0
+                };
+            }
+
+            handleClick = () => {
+                this.setState((prevState) => ({
+                    count: prevState.count + 1
+                }));
+            };
+
+            render() {
+                return (
+                    <div>
+                        <h2>React Class Component Example</h2>
+                        <button onClick={this.handleClick} style={{backgroundColor: 'rgb(11, 158, 131)', borderRadius: '5px', padding: '10px'}}>
+                            Click Me!
+                        </button>
+                        <p style={{color: 'red'}}>You have clicked the button {this.state.count} times</p>
+                    </div>
+                );
+            }
+        }
+
+        ReactDOM.render(<MyComponent />, document.getElementById('root'));
+
+        //var root = ReactDOM.createRoot(document.getElementById('root'));
+       //  root.render(<MyComponent />);
+    </script>
+</body>
+</html>
