@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+<head>
+    <meta charset="UTF-8">
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Angular js filter example</title>
+</head>
+<body ng-controller="myController">
+    <h1 style="text-align: center;">List of Students </h1>
+    <!-- display every element of array like we do using for loop -->
+    <!-- search text box-->
+     <input type="text" ng-model="searchText" placeholder="Search Student">
+
+     <!-- sorting example-->
+      <button ng-click="sortType = 'age'; sortReverse = !sortReverse">Sort by Name </button>
+     <br><br>
+     <ul>
+        <li ng-repeat="student in students | filter:searchText | orderBy:sortType:sortReverse"> 
+            {{student.name}}  {{student.age}} {{student.class}} </li>
+     </ul>
+
+     <!-- string filter example-->
+     <div ng-controller="stringFilterController">
+        <h1> original: {{name}} </h1>
+        <h1> lowercase: {{name | lowercase}} </h1>
+        <h1> uppercase: {{name | uppercase}} </h1>
+     </div>
+    
+     <script>
+        // main angular js application
+        var app = angular.module("myApp", []);  // [] for external module dependency
+
+        // controller logic
+        app.controller("myController",function($scope) {
+            $scope.students=[
+                {name: "John", age: 20, class: "A"},
+                {name: "Mary", age: 22, class: "B"},
+                {name: "Peter", age: 21, class: "C"},
+                {name: "David", age: 23, class: "D"}
+            ];
+        });
+
+        //second controller for string filter example
+        app.controller("stringFilterController", function($scope) {
+            $scope.name = "John Doe";
+        });
+     </script>
+</body>
+</html>

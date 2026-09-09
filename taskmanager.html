@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+<head>
+    <meta charset="UTF-8">
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>task manager example with ng-click</title>
+</head>
+
+<body ng-controller = "myController">
+    <h1 style="text-align: center;">Task Manager </h1>
+    <!-- display every element of array like we do using for loop -->
+     <ul>
+        <li ng-repeat="task in tasks"> {{task.name}}  {{task.status}} 
+            <button ng-click="changeStatus(task)">Change Status</button> 
+            <!-- add task-->
+        </li>
+     </ul>
+    
+     <input type="text" ng-model="newTaskName" placeholder="Enter new task name">
+     <button ng-click="addTask()">Add Task</button>
+
+     <script>
+        // main angular js application
+        var app = angular.module("myApp", []);  // [] for external module dependency
+
+        // controller logic
+        app.controller("myController",function($scope) {
+            $scope.tasks=[
+                {name: "Task 1", status: "Pending"},
+                {name: "Task 2", status: "In Progress"},
+                {name: "Task 3", status: "Completed"},
+                {name: "Task 4", status: "Pending"}
+            ];
+
+            $scope.changeStatus = function(task) {
+                if (task.status === "Pending") {
+                    task.status = "In Progress";
+                } else if (task.status === "In Progress") {
+                    task.status = "Completed";
+                } else {
+                    task.status = "Pending";
+                }
+            };
+
+        /*    $scope.addTask = function() {
+                var newTaskName = prompt("Enter the name of the new task:");
+                if (newTaskName) {
+                    $scope.tasks.push({name: newTaskName, status: "Pending"});
+                }
+            };  */
+
+            $scope.addTask = function() {
+                if ($scope.newTaskName) {
+                    $scope.tasks.push({name: $scope.newTaskName, status: "Pending"});
+                    $scope.newTaskName = ""; // Clear the input field after adding the task
+                    console.log("New task added: " + $scope.newTaskName);
+                }
+            };
+        });
+     </script>
+</body>
+
+</html>
+
